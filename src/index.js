@@ -1,5 +1,4 @@
 //Global Variables
-
 const ramenAPI = 'http://localhost:3000/ramens'
 const ramenMenu = document.getElementById('ramen-menu')
 const ramenDetail = document.getElementById('ramen-detail')
@@ -92,10 +91,9 @@ function addNewRamens() {
         .then(json => {
             ramenList.push(json)
             renderRamens()
-            form.reeset()
+            form.reset()
         })
     }
-
 
     
 //Edit Ramen Rating and Comments
