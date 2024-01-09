@@ -14,8 +14,10 @@ const headers = {
 
 let ramenList = [];
 
+//Submit for event listener
 ramenForm.addEventListener('submit', addNewRamens)
-editForm.addEventListener('submit', editRamens)
+
+ 
 
 //GET FETCH
 fetch(ramenAPI)
@@ -34,22 +36,35 @@ function renderRamens() {
 function renderRamen(ramens) {
     const ramenImg = document.createElement('div')
     ramenImg.classList.add('ramen-pics')
+    const idRamenImage = `rmn-id${ramens.id}`
+    const deleteButtonID = `delete-btn${ramens.id}`
     ramenImg.innerHTML = `
-    <img src= "${ramens.image}" class= "ramen-images"/>
-    <button id="delete-button"> Delete </button>
+    <img src= "${ramens.image}" class= "ramen-images" id= "${idRamenImage}"/>
+    <button id="${deleteButtonID}"> Delete </button>
     `;
     ramenMenu.append(ramenImg)
-    ramenImg.addEventListener('click', event => {
+    ramenImg.addEventListener('click', (event) => {
         showDetails(ramens)
     })
-    const deleteButton = document.getElementById('delete-button')
-    deleteButton.addEventListener('click', handleDelete)
+    const deleteButton = document.getElementById(deleteButtonID)
+    deleteButton.addEventListener('click',handleDelete)
 }
 
 //Delete Buttom
 function handleDelete(event) {
+    // Remove the ramen element from the ramen-menu div
+    const index = ramenList.findIndex(ramen => ramen.id === ramenList.id);
 
-}
+    // Remove the ramen from the array
+    ramenList.splice(index, 1);
+
+        ramenDetail.style.display = "none"; // or whatever value you want when displaying
+        ratingDisplay.style.display = "none";
+        commentDisplay.style.display = "none";
+       
+        // Re-render the remaining ramens
+        renderRamens();
+    }
 
 //Image Click Shows Details
 function showDetails(ramens) {
@@ -65,6 +80,7 @@ function showDetails(ramens) {
 
 //Submit New Ramen
 function addNewRamens() {
+    event.preventDefault()
     const form = event.target
     const addRamens = {
         name: form.name.value,
@@ -87,28 +103,22 @@ function addNewRamens() {
         })
     }
 
-    
+    //Edit for event listener    
+ editForm.addEventListener('submit', editRamens)
+
 //Edit Ramen Rating and Comments
 function editRamens(event) {
-    event.preventDefault()
-    const formEdit = event.value
-    const rcChanges = {
-        rating: formEdit.rating.value,
-        comment: formEdit['new-comment'].value 
-    }
-    fetch(`${ramenAPI}/${ramenid}`, {
-        headers,
-        method: "PATCH",
-        body: JSON.stringify(rcChanges)
-    })
-    .then(resp => resp.json())
-    .then(json => {
-        // ramenList.rating = json.rating
-        // ramenList.comment = json.comment
+    event.preventDefault();
+    const form = event.target;
+    const updatedRating = form.rating.value;
+    const updatedComment = form['new-comment'].value;
 
-    })
+    // Update the displayed details
+    ratingDisplay.textContent = updatedRating;
+    commentDisplay.textContent = updatedComment;
+
+    form.reset();
 }
-
     //## Advanced Deliverables
 
 
@@ -118,3 +128,4 @@ function editRamens(event) {
     //     .then(json => {
     //         showDetails(json)
     //     })}
+

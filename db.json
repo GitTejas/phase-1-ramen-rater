@@ -39,6 +39,14 @@
       "image": "./assets/ramen/kojiro.jpg",
       "rating": 6,
       "comment": "Perfect for a cold night."
+    },
+    {
+      "name": "THISGONBEGOOD",
+      "restaurant": "Saskue Thingz",
+      "image": "https://arvadasasukeramen.com/images/4.jpg",
+      "rating": "43",
+      "comment": "sds",
+      "id": 6
     }
   ]
 }
