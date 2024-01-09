@@ -58,7 +58,7 @@ the extra time, or even after the code challenge, they are a great way to
 stretch your skills.
 
 > Note: If you are going to attempt these advanced deliverables, please be sure
-> to have a working commit with all the Core Deliverables first!
+> to have a working commit with all the Core Deliverables first!!
 
 As a user, I can:
 
