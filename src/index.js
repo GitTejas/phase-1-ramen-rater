@@ -23,20 +23,12 @@ fetch(ramenAPI)
 .then(json => {
     ramenList = json
     renderRamens()
-    // if (ramenList.length > 0) {
-    //     fetch(`${ramenAPI}/${ramenList[0].id}`)
-    //     .then(resp => resp.json())
-    //     .then(json => {
-    //         showDetails(json)
-    //     })}
 })
 
 function renderRamens() {
     ramenMenu.innerHTML = " ";
     ramenList.forEach(renderRamen)
-    if (ramenList.length > 0) {   //Show the first ramen when page loads
         showDetails(ramenList[0])
-    }
 }
 
 function renderRamen(ramens) {
@@ -117,6 +109,12 @@ function editRamens(event) {
     })
 }
 
-
     //## Advanced Deliverables
 
+
+    // if (ramenList.length > 0) {
+    //     fetch(`${ramenAPI}/${ramenList[0].id}`)
+    //     .then(resp => resp.json())
+    //     .then(json => {
+    //         showDetails(json)
+    //     })}
