@@ -13,10 +13,6 @@ const headers = {
 }
 
 let ramenList = [];
-
-//Submit for event listener
-ramenForm.addEventListener('submit', addNewRamens)
-
  
 //GET FETCH
 fetch(ramenAPI)
@@ -83,6 +79,9 @@ function showDetails(ramens) {
     commentDisplay.textContent = `${ramens.comment}`
 }
 
+//Submit for event listener
+ramenForm.addEventListener('submit', addNewRamens)
+
 //Submit New Ramen
 function addNewRamens() {
     event.preventDefault()
@@ -124,27 +123,23 @@ function editRamens(event) {
 
     form.reset();
 
-    
-    //PATCH ATTEMPT
-      //Use for loop to grab the API link for all the IDS
-      for (const ramen of ramenList) {
-        const ramenIda = ramen.id;
-        const idLink = `${ramenAPI}/${ramenIda}`;
-        fetch(idLink, {
-            headers,
-            method: 'PATCH', 
-            body: JSON.stringify({
-                rating: updatedRating,
-                comment: updatedComment,
-            }),
-        })
-        .then(resp => resp.json())
-        .then(json => {
-            updatedRating.value = ramenIda.rating
-            updatedComment.value = ramenIda.comment
-        })
-        .catch(error => {
-            console.error('Error updating ramen:', error);
-        });
-    }
-    }
+     // PATCH ATTEMPT!!!!
+     const selectedRamenId = 1
+     const selectedRamen = ramenList.find(ramen => ramen.id === selectedRamenId);
+ 
+     if (selectedRamen) {
+         const idLink = `${ramenAPI}/${selectedRamenId}`;
+         fetch(idLink, {
+             headers,
+             method: 'PATCH',
+             body: JSON.stringify({
+                 rating: updatedRating,
+                 comment: updatedComment,
+             }),
+         })
+         .then(resp => resp.json())
+         .then(updatedRamen => {
+             Object.assign(selectedRamen, updatedRamen);
+         })
+     }
+ }
