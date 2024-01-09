@@ -18,7 +18,6 @@ let ramenList = [];
 ramenForm.addEventListener('submit', addNewRamens)
 
  
-
 //GET FETCH
 fetch(ramenAPI)
 .then(resp => resp.json())
@@ -50,7 +49,7 @@ function renderRamen(ramens) {
     deleteButton.addEventListener('click',handleDelete)
 }
 
-//Delete Buttom
+    //Delete Buttom
 function handleDelete(event) {
     // Remove the ramen element from the ramen-menu div
     const index = ramenList.findIndex(ramen => ramen.id === ramenList.id);
@@ -58,13 +57,19 @@ function handleDelete(event) {
     // Remove the ramen from the array
     ramenList.splice(index, 1);
 
-        ramenDetail.style.display = "none"; // or whatever value you want when displaying
+    fetch(ramenAPI, {
+        headers,
+        method: "DELETE",
+    })
+    .then(resp => resp.json())
+    .then(deletedRamen => {
+        ramenDetail.style.display = "none"; 
         ratingDisplay.style.display = "none";
         commentDisplay.style.display = "none";
-       
-        // Re-render the remaining ramens
+        
         renderRamens();
-    }
+    })
+}
 
 //Image Click Shows Details
 function showDetails(ramens) {
@@ -118,14 +123,28 @@ function editRamens(event) {
     commentDisplay.textContent = updatedComment;
 
     form.reset();
-}
-    //## Advanced Deliverables
 
-
-    // if (ramenList.length > 0) {
-    //     fetch(`${ramenAPI}/${ramenList[0].id}`)
-    //     .then(resp => resp.json())
-    //     .then(json => {
-    //         showDetails(json)
-    //     })}
-
+    
+    //PATCH ATTEMPT
+      //Use for loop to grab the API link for all the IDS
+      for (const ramen of ramenList) {
+        const ramenIda = ramen.id;
+        const idLink = `${ramenAPI}/${ramenIda}`;
+        fetch(idLink, {
+            headers,
+            method: 'PATCH', 
+            body: JSON.stringify({
+                rating: updatedRating,
+                comment: updatedComment,
+            }),
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            updatedRating.value = ramenIda.rating
+            updatedComment.value = ramenIda.comment
+        })
+        .catch(error => {
+            console.error('Error updating ramen:', error);
+        });
+    }
+    }
