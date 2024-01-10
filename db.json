@@ -5,8 +5,8 @@
       "name": "Shoyu Ramen",
       "restaurant": "Nonono",
       "image": "./assets/ramen/shoyu.jpg",
-      "rating": "11",
-      "comment": "11"
+      "rating": "10",
+      "comment": "Very cool"
     },
     {
       "id": 2,
@@ -37,16 +37,8 @@
       "name": "Kojiro Red Ramen",
       "restaurant": "Ramen-Ya",
       "image": "./assets/ramen/kojiro.jpg",
-      "rating": "9999",
-      "comment": "sooo good!"
-    },
-    {
-      "name": "Amazing",
-      "restaurant": "Blessed Express",
-      "image": "https://static.wikia.nocookie.net/sonic-nexus/images/f/f2/Magma_Dragoon.png/revision/latest?cb=20220914092058",
-      "rating": "999999",
-      "comment": "spicy and amazing good food",
-      "id": 6
+      "rating": "22",
+      "comment": "a"
     },
     {
       "name": "Sasukes Noodles",

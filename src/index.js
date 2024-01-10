@@ -7,6 +7,8 @@ const ratingDisplay = document.getElementById('rating-display')
 const commentDisplay = document.getElementById('comment-display')
 const editForm = document.getElementById('edit-ramen')
 
+let selectedRamenId = null;
+
 const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -44,6 +46,7 @@ function renderRamen(ramens) {
 
     ramenMenu.append(ramenImg, deleteButton)
     ramenImg.addEventListener('click', event => {
+        selectedRamenId = ramens.id; 
         showDetails(ramens)
     })
         deleteButton.addEventListener('click', () => {
@@ -115,7 +118,7 @@ function addNewRamens() {
  editForm.addEventListener('submit', editRamens)
 
 //Edit Ramen Rating and Comments
-function editRamens(ramens) {
+function editRamens(event) {
     event.preventDefault();
     const form = event.target;
     const updatedRating = form.rating.value;
@@ -128,7 +131,7 @@ function editRamens(ramens) {
     form.reset();
 
      // PATCH ATTEMPT!!!!
-     const selectedRamenId = 1
+
      const selectedRamen = ramenList.find(ramen => ramen.id === selectedRamenId);
  
      if (selectedRamen) {
@@ -147,19 +150,3 @@ function editRamens(ramens) {
          })
      }
  }
-
-//  const indexUpdate = ramenList.findIndex(ramen => ramen.id === ramens.id);
- 
-//  fetch(`${ramenAPI}/${ramens.id}`, {
-//      headers,
-//      method: "PATCH",
-//      body: JSON.stringify({
-//         rating: updatedRating,
-//         comment: updatedComment,
-//      }),
-//  })
-//  .then(resp => resp.json())
-//  .then(updatedRamen => {
-//     Object.assign(indexUpdate, updatedRamen);
-//      renderRamens();
-//  })
