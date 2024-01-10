@@ -118,7 +118,7 @@ function addNewRamens() {
  editForm.addEventListener('submit', editRamens)
 
 //Edit Ramen Rating and Comments
-function editRamens(event) {
+function editRamens() {
     event.preventDefault();
     const form = event.target;
     const updatedRating = form.rating.value;
@@ -130,11 +130,8 @@ function editRamens(event) {
 
     form.reset();
 
-     // PATCH ATTEMPT!!!!
-
-     const selectedRamen = ramenList.find(ramen => ramen.id === selectedRamenId);
- 
-     if (selectedRamen) {
+     // PATCH  
+     if (selectedRamenId) {
          const idLink = `${ramenAPI}/${selectedRamenId}`;
          fetch(idLink, {
              headers,
@@ -146,7 +143,7 @@ function editRamens(event) {
          })
          .then(resp => resp.json())
          .then(updatedRamen => {
-             Object.assign(selectedRamen, updatedRamen);
-         })
+            updatedRamen
+         });
+         }
      }
- }
