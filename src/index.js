@@ -40,8 +40,8 @@ function renderRamen(ramens) {
     deleteButton.textContent = "DELETE"
     deleteButton.style.display = "in-line"
     deleteButton.style.display = 'block';
-    deleteButton.style.width = '80px'; // Adjust the width as needed
-    deleteButton.style.height = '20px'; // Adjust the height as needed
+    deleteButton.style.width = '80px'; 
+    deleteButton.style.height = '20px'; 
     deleteButton.style.backgroundColor = 'lightcoral';
 
     ramenMenu.append(ramenImg, deleteButton)
