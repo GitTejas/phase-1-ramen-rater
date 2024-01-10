@@ -124,7 +124,7 @@ function editRamens() {
     const updatedRating = form.rating.value;
     const updatedComment = form['new-comment'].value;
 
-    // Update the displayed details
+// Update the displayed details
     ratingDisplay.textContent = updatedRating;
     commentDisplay.textContent = updatedComment;
 
