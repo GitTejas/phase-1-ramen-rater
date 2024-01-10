@@ -29,54 +29,58 @@ function renderRamens() {
 }
 
 function renderRamen(ramens) {
-    const ramenImg = document.createElement('div')
-    ramenImg.classList.add('ramen-pics')
-    const idRamenImage = `rmn-id${ramens.id}`
+    const ramenImg = document.createElement('img')
+    ramenImg.src = ramens.image
+    ramenImg.id =`rmn-id${ramens.id}`
+    const deleteButton = document.createElement('button')
     const deleteButtonID = `delete-btn${ramens.id}`
-    ramenImg.innerHTML = `
-    <img src= "${ramens.image}" class= "ramen-images" id= "${idRamenImage}"/>
-    <button id="${deleteButtonID}"> Delete </button>
-    `;
-    ramenMenu.append(ramenImg)
-    ramenImg.addEventListener('click', (event) => {
+    deleteButton.id = deleteButtonID
+    deleteButton.textContent = "DELETE"
+    deleteButton.style.display = "in-line"
+    deleteButton.style.display = 'block';
+    deleteButton.style.width = '80px'; // Adjust the width as needed
+    deleteButton.style.height = '20px'; // Adjust the height as needed
+    deleteButton.style.backgroundColor = 'lightcoral';
+
+    ramenMenu.append(ramenImg, deleteButton)
+    ramenImg.addEventListener('click', event => {
         showDetails(ramens)
     })
-    const deleteButton = document.getElementById(deleteButtonID)
-    deleteButton.addEventListener('click',handleDelete)
-}
-
+        deleteButton.addEventListener('click', () => {
+         handleDelete(ramens)
+        })
+    }
     //Delete Buttom
-function handleDelete(event) {
-    // Remove the ramen element from the ramen-menu div
-    const index = ramenList.findIndex(ramen => ramen.id === ramenList.id);
+function handleDelete(ramens) {
+    const index = ramenList.findIndex(ramen => ramen.id === ramens.id);
+    const detailImage = ramenDetail.querySelector('.detail-image')
 
     // Remove the ramen from the array
     ramenList.splice(index, 1);
-
-    fetch(ramenAPI, {
+    
+    fetch(`${ramenAPI}/${ramens.id}`, {
         headers,
         method: "DELETE",
     })
     .then(resp => resp.json())
     .then(deletedRamen => {
-        ramenDetail.style.display = "none"; 
-        ratingDisplay.style.display = "none";
-        commentDisplay.style.display = "none";
-        
+        detailImage.src = './assets/image-placeholder.jpg'
         renderRamens();
     })
 }
 
 //Image Click Shows Details
 function showDetails(ramens) {
-    let details 
-    ramenDetail.innerHTML = `
-    <img class="detail-image" src="${ramens.image}" alt="${ramens.name}"/>
-    <h2 class="name">${ramens.name}</h2>
-    <h3 class="restaurant">${ramens.restaurant}</h3>
-    `;
-    ratingDisplay.textContent = `${ramens.rating}`
-    commentDisplay.textContent = `${ramens.comment}`
+    const detailImage = ramenDetail.querySelector('.detail-image')
+    detailImage.src = ramens.image
+    detailImage.alt = ramens.name
+    ramenDetail.querySelector('.name').textContent = ramens.name
+    ramenDetail.querySelector('.restaurant').textContent = ramens.restaurant
+    ratingDisplay.textContent = ramens.rating
+    commentDisplay.textContent = ramens.comment
+
+    ratingDisplay.style.display = "inline";
+    commentDisplay.style.display = "block";
 }
 
 //Submit for event listener
@@ -107,11 +111,11 @@ function addNewRamens() {
         })
     }
 
-    //Edit for event listener    
+//Edit form event listener    
  editForm.addEventListener('submit', editRamens)
 
 //Edit Ramen Rating and Comments
-function editRamens(event) {
+function editRamens(ramens) {
     event.preventDefault();
     const form = event.target;
     const updatedRating = form.rating.value;
@@ -143,3 +147,19 @@ function editRamens(event) {
          })
      }
  }
+
+//  const indexUpdate = ramenList.findIndex(ramen => ramen.id === ramens.id);
+ 
+//  fetch(`${ramenAPI}/${ramens.id}`, {
+//      headers,
+//      method: "PATCH",
+//      body: JSON.stringify({
+//         rating: updatedRating,
+//         comment: updatedComment,
+//      }),
+//  })
+//  .then(resp => resp.json())
+//  .then(updatedRamen => {
+//     Object.assign(indexUpdate, updatedRamen);
+//      renderRamens();
+//  })

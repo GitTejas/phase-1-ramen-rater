@@ -5,8 +5,8 @@
       "name": "Shoyu Ramen",
       "restaurant": "Nonono",
       "image": "./assets/ramen/shoyu.jpg",
-      "rating": "543543543543",
-      "comment": "bestever"
+      "rating": "11",
+      "comment": "11"
     },
     {
       "id": 2,
@@ -47,6 +47,14 @@
       "rating": "999999",
       "comment": "spicy and amazing good food",
       "id": 6
+    },
+    {
+      "name": "Sasukes Noodles",
+      "restaurant": "Sasukes Spot",
+      "image": "https://arvadasasukeramen.com/images/4.jpg",
+      "rating": "10",
+      "comment": "This place rocks!",
+      "id": 7
     }
   ]
 }
